@@ -12,9 +12,7 @@ class DirectoryLoader extends FileLoader
     {
         $file = rtrim($file, '/');
         $path = $this->locator->locate($file);
-
-//        var_dump(new DirectoryResource($path));
-
+        
         foreach (scandir($path) as $dir) {
             if ('.' !== $dir[0]) {
                 if (is_dir($path.'/'.$dir)) {
