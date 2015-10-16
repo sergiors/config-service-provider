@@ -27,6 +27,43 @@ class ConfigServiceProviderTest extends WebTestCase
         $this->assertEquals($app['config.parameters']->get('root_dir'), dirname(__DIR__));
     }
 
+    /**
+     * @test
+     */
+    public function shouldSupportPhpFile()
+    {
+        $app = $this->createApplication();
+        $app->register(new ConfigServiceProvider(), [
+            'config.replacements' => [
+                'root_dir' => dirname(__DIR__)
+            ]
+        ]);
+
+        $app['config.loader']->load(__DIR__.'/../app/config.php');
+        $this->assertCount(1, $app['twig.options']);
+        $this->assertArrayHasKey('debug', $app['twig.options']);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldLoadFileDirectory()
+    {
+        $app = $this->createApplication();
+        $app->register(new ConfigServiceProvider(), [
+            'config.replacements' => [
+                'root_dir' => dirname(__DIR__)
+            ]
+        ]);
+
+        $app['config.loader']->load(dirname(__DIR__).'/app/sub/');
+
+        $this->assertCount(1, $app['twig.options']);
+        $this->assertCount(1, $app['router']);
+        $this->assertCount(5, $app['db.options']);
+        $this->assertEquals($app['router']['resource'], dirname(__DIR__).'/app/routing.yml');
+    }
+
     public function createApplication()
     {
         $app = new Application();

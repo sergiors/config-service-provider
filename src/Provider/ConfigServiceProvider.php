@@ -8,6 +8,8 @@ use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Inbep\Silex\DependencyInjection\Loader\YamlFileLoader;
+use Inbep\Silex\DependencyInjection\Loader\PhpFileLoader;
+use Inbep\Silex\DependencyInjection\Loader\DirectoryLoader;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
@@ -26,9 +28,19 @@ class ConfigServiceProvider implements ServiceProviderInterface
             return new YamlFileLoader($app, new FileLocator());
         });
 
+        $app['config.loader.php'] = $app->share(function (Application $app) {
+            return new PhpFileLoader($app, new FileLocator());
+        });
+
+        $app['config.loader.directory'] = $app->share(function (Application $app) {
+            return new DirectoryLoader($app, new FileLocator());
+        });
+
         $app['config.resolver'] = $app->share(function (Application $app) {
             return new LoaderResolver([
-                $app['config.loader.yml']
+                $app['config.loader.yml'],
+                $app['config.loader.directory'],
+                $app['config.loader.php']
             ]);
         });
 
