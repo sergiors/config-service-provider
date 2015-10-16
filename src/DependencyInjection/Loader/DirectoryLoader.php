@@ -1,8 +1,6 @@
 <?php
 namespace Inbep\Silex\DependencyInjection\Loader;
 
-use Symfony\Component\Config\Resource\DirectoryResource;
-
 class DirectoryLoader extends FileLoader
 {
     /**
