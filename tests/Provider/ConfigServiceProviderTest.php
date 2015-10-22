@@ -18,6 +18,15 @@ class ConfigServiceProviderTest extends WebTestCase
                 'root_dir' => dirname(__DIR__)
             ]
         ]);
+        $app['db.options'] = [
+            'driver' => null
+        ];
+        $app['foo.options'] = [
+            'foo' => [
+                'bar' => null,
+                'beer' => []
+            ]
+        ];
 
         $app['config.loader']->load(__DIR__.'/../app/config_dev.yml');
 
@@ -25,6 +34,9 @@ class ConfigServiceProviderTest extends WebTestCase
         $this->assertCount(6, $app['db.options']);
         $this->assertEquals($app['router']['resource'], dirname(__DIR__).'/app/routing.yml');
         $this->assertEquals($app['config.parameters']->get('root_dir'), dirname(__DIR__));
+        $this->assertEquals('pdo_pgsql', $app['db.options']['driver']);
+        $this->assertEquals('beer', $app['foo.options']['foo']['bar']);
+        $this->assertCount(2, $app['foo.options']['foo']['beer']);
     }
 
     /**

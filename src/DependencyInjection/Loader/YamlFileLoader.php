@@ -36,13 +36,22 @@ class YamlFileLoader extends FileLoader
             }
 
             if ($this->container->offsetExists($namespace) && is_array($values)) {
-                $values = array_merge_recursive($this->container[$namespace], $values);
+                $values = $this->merge($this->container[$namespace], $values);
             }
 
             $this->container[$namespace] = $values;
         }
 
         return $content;
+    }
+
+    private function merge($array1, $array2)
+    {
+        foreach ($array2 as $key => $value) {
+            $array1[$key] = $value;
+        }
+
+        return $array1;
     }
 
     /**
