@@ -45,13 +45,18 @@ class YamlFileLoader extends FileLoader
         return $content;
     }
 
-    private function merge($array1, $array2)
+    /**
+     * @param array $current
+     * @param array $new
+     * @return array
+     */
+    private function merge(array $current, array $new)
     {
-        foreach ($array2 as $key => $value) {
-            $array1[$key] = $value;
+        foreach ($new as $key => $value) {
+            $current[$key] = $value;
         }
 
-        return $array1;
+        return $current;
     }
 
     /**
