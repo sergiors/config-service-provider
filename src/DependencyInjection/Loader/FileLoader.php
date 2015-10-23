@@ -4,6 +4,9 @@ namespace Inbep\Silex\DependencyInjection\Loader;
 use Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;
 use Symfony\Component\Config\FileLocatorInterface;
 
+/**
+ * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
+ */
 abstract class FileLoader extends BaseFileLoader
 {
     /**

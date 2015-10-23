@@ -1,6 +1,10 @@
 <?php
 namespace Inbep\Silex\DependencyInjection\Loader;
 
+/**
+ * @author Fabien Potencier <fabien@symfony.com>
+ * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
+ */
 class DirectoryLoader extends FileLoader
 {
     /**
