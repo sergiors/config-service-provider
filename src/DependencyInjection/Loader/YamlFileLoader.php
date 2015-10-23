@@ -53,6 +53,11 @@ class YamlFileLoader extends FileLoader
     private function merge(array $current, array $new)
     {
         foreach ($new as $key => $value) {
+            if (isset($current[$key]) && is_array($value)) {
+                $current[$key] = $this->merge($current[$key], $value);
+                continue;
+            }
+
             $current[$key] = $value;
         }
 
