@@ -1,5 +1,5 @@
 <?php
-namespace Inbep\Silex\DependencyInjection\Loader;
+namespace Sergiors\Silex\DependencyInjection\Loader;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>

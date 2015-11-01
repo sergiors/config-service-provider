@@ -1,5 +1,5 @@
 <?php
-namespace Inbep\Silex\DependencyInjection\Loader;
+namespace Sergiors\Silex\DependencyInjection\Loader;
 
 use Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;
 use Symfony\Component\Config\FileLocatorInterface;

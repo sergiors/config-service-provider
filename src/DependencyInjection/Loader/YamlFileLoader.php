@@ -1,5 +1,5 @@
 <?php
-namespace Inbep\Silex\DependencyInjection\Loader;
+namespace Sergiors\Silex\DependencyInjection\Loader;
 
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Yaml\Exception\ParseException;

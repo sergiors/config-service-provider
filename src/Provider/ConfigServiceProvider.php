@@ -1,5 +1,5 @@
 <?php
-namespace Inbep\Silex\Provider;
+namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
@@ -7,9 +7,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use Inbep\Silex\DependencyInjection\Loader\YamlFileLoader;
-use Inbep\Silex\DependencyInjection\Loader\PhpFileLoader;
-use Inbep\Silex\DependencyInjection\Loader\DirectoryLoader;
+use Sergiors\Silex\DependencyInjection\Loader\YamlFileLoader;
+use Sergiors\Silex\DependencyInjection\Loader\PhpFileLoader;
+use Sergiors\Silex\DependencyInjection\Loader\DirectoryLoader;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
