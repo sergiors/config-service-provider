@@ -3,7 +3,6 @@ namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
 use Silex\WebTestCase;
-use Symfony\Component\Config\FileLocator;
 
 class ConfigServiceProviderTest extends WebTestCase
 {

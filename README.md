@@ -4,7 +4,7 @@ Config Service Provider
 Install
 -------
 ```
-composer require inbep/config-service-provider
+composer require sergiors/config-service-provider
 ```
 
 How to use
@@ -31,7 +31,8 @@ router:
 
 In your php file
 ```php
-$app->register(use Inbep\Silex\Provider\ConfigServiceProvider(), [
+use Sergiors\Silex\Provider\ConfigServiceProvider
+$app->register(new ConfigServiceProvider(), [
     'config.replacements' => [
         'root_dir' => dirname(__DIR__)
     ]
