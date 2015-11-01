@@ -1,5 +1,6 @@
 {
   "name": "inbep/config-service-provider",
+  "description": "Load yaml, php, directory config to into your container",
   "license": "MIT",
   "authors": [
     {
