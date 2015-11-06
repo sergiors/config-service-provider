@@ -19,11 +19,11 @@ twig.options:
     debug: false
 
 db.options:
-      driver: ~
-      host: ~
-      user: ~
-      password: ~
-      dbname: ~
+    driver: ~
+    host: ~
+    user: ~
+    password: ~
+    dbname: ~
 
 router:
     resource: %root_dir%/app/routing.yml
@@ -31,7 +31,8 @@ router:
 
 In your php file
 ```php
-use Sergiors\Silex\Provider\ConfigServiceProvider
+use Sergiors\Silex\Provider\ConfigServiceProvider;
+
 $app->register(new ConfigServiceProvider(), [
     'config.replacements' => [
         'root_dir' => dirname(__DIR__)
