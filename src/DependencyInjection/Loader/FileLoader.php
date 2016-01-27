@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\DependencyInjection\Loader;
 
 use Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;
@@ -17,8 +18,8 @@ abstract class FileLoader extends BaseFileLoader
     /**
      * Constructor.
      *
-     * @param \Pimple $container A Pimple instance
-     * @param FileLocatorInterface $locator A FileLocator instance
+     * @param \Pimple              $container A Pimple instance
+     * @param FileLocatorInterface $locator   A FileLocator instance
      */
     public function __construct(\Pimple $container, FileLocatorInterface $locator)
     {

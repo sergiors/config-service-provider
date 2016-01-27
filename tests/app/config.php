@@ -1,4 +1,5 @@
 <?php
+
 $container['twig.options'] = [
-    'debug' => false
+    'debug' => false,
 ];

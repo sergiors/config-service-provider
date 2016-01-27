@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\DependencyInjection\Loader;
 
 use Symfony\Component\Yaml\Parser as YamlParser;
@@ -52,6 +53,7 @@ class YamlFileLoader extends FileLoader
     /**
      * @param array $current
      * @param array $new
+     *
      * @return array
      */
     private function merge(array $current, array $new)

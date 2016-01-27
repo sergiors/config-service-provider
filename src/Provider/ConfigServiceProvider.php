@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
@@ -40,7 +41,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
             return new LoaderResolver([
                 $app['config.loader.yml'],
                 $app['config.loader.directory'],
-                $app['config.loader.php']
+                $app['config.loader.php'],
             ]);
         });
 

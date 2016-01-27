@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
@@ -14,17 +15,17 @@ class ConfigServiceProviderTest extends WebTestCase
         $app = $this->createApplication();
         $app->register(new ConfigServiceProvider(), [
             'config.replacements' => [
-                'root_dir' => dirname(__DIR__)
-            ]
+                'root_dir' => dirname(__DIR__),
+            ],
         ]);
         $app['db.options'] = [
-            'driver' => null
+            'driver' => null,
         ];
         $app['foo.options'] = [
             'foo' => [
                 'bar' => null,
-                'beer' => []
-            ]
+                'beer' => [],
+            ],
         ];
 
         $app['config.loader']->load(__DIR__.'/../app/config_dev.yml');
@@ -46,8 +47,8 @@ class ConfigServiceProviderTest extends WebTestCase
         $app = $this->createApplication();
         $app->register(new ConfigServiceProvider(), [
             'config.replacements' => [
-                'root_dir' => dirname(__DIR__)
-            ]
+                'root_dir' => dirname(__DIR__),
+            ],
         ]);
 
         $app['config.loader']->load(__DIR__.'/../app/config.php');
@@ -63,8 +64,8 @@ class ConfigServiceProviderTest extends WebTestCase
         $app = $this->createApplication();
         $app->register(new ConfigServiceProvider(), [
             'config.replacements' => [
-                'root_dir' => dirname(__DIR__)
-            ]
+                'root_dir' => dirname(__DIR__),
+            ],
         ]);
 
         $app['config.loader']->load(dirname(__DIR__).'/app/sub/');

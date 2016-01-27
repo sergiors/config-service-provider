@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\DependencyInjection\Loader;
 
 /**
@@ -14,7 +15,7 @@ class DirectoryLoader extends FileLoader
     {
         $file = rtrim($file, '/');
         $path = $this->locator->locate($file);
-        
+
         foreach (scandir($path) as $dir) {
             if ('.' !== $dir[0]) {
                 if (is_dir($path.'/'.$dir)) {
@@ -33,6 +34,7 @@ class DirectoryLoader extends FileLoader
         if ('directory' === $type) {
             return true;
         }
+
         return null === $type && is_string($resource) && '/' === substr($resource, -1);
     }
 }
