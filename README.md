@@ -25,8 +25,8 @@ db.options:
     password: ~
     dbname: ~
 
-router:
-    resource: %root_dir%/app/routing.yml
+routing.options:
+    paths: %root_dir%/app/routing.yml
 ```
 
 In your php file
