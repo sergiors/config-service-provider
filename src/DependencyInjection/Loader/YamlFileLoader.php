@@ -8,6 +8,8 @@ use Symfony\Component\Yaml\Exception\ParseException;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
+ *
+ * @see https://github.com/symfony/dependency-injection/blob/master/Loader/YamlFileLoader.php
  */
 class YamlFileLoader extends FileLoader
 {

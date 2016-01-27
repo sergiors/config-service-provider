@@ -3,8 +3,10 @@
 namespace Sergiors\Silex\DependencyInjection\Loader;
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
+ * @author Sebastien Lavoie <seb@wemakecustom.com>
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
+ *
+ * @see https://github.com/symfony/dependency-injection/blob/master/Loader/DirectoryLoader.php
  */
 class DirectoryLoader extends FileLoader
 {
