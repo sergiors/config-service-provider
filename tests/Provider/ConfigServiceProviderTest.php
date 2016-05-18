@@ -2,10 +2,9 @@
 
 namespace Sergiors\Silex\Provider;
 
-use Silex\Application;
-use Silex\WebTestCase;
+use Pimple\Container;
 
-class ConfigServiceProviderTest extends WebTestCase
+class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -78,10 +77,6 @@ class ConfigServiceProviderTest extends WebTestCase
 
     public function createApplication()
     {
-        $app = new Application();
-        $app['debug'] = true;
-        $app['exception_handler']->disable();
-
-        return $app;
+        return new Container();
     }
 }

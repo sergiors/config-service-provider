@@ -2,8 +2,8 @@
 
 namespace Sergiors\Silex\Provider;
 
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\DelegatingLoader;
@@ -17,40 +17,36 @@ use Sergiors\Silex\DependencyInjection\Loader\DirectoryLoader;
  */
 class ConfigServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['config.replacements'] = [];
-
-        $app['config.parameters'] = $app->share(function (Application $app) {
+        $app['config.parameters'] = function () use ($app) {
             return new ParameterBag($app['config.replacements']);
-        });
+        };
 
-        $app['config.loader.yml'] = $app->share(function (Application $app) {
+        $app['config.loader.yml'] = $app->factory(function (Container $app) {
             return new YamlFileLoader($app, new FileLocator());
         });
 
-        $app['config.loader.php'] = $app->share(function (Application $app) {
+        $app['config.loader.php'] = $app->factory(function (Container $app) {
             return new PhpFileLoader($app, new FileLocator());
         });
 
-        $app['config.loader.directory'] = $app->share(function (Application $app) {
+        $app['config.loader.directory'] = $app->factory(function (Container $app) {
             return new DirectoryLoader($app, new FileLocator());
         });
 
-        $app['config.resolver'] = $app->share(function (Application $app) {
+        $app['config.resolver'] =function () use ($app) {
             return new LoaderResolver([
                 $app['config.loader.yml'],
                 $app['config.loader.directory'],
                 $app['config.loader.php'],
             ]);
-        });
+        };
 
-        $app['config.loader'] = $app->share(function (Application $app) {
+        $app['config.loader'] = function () use ($app) {
             return new DelegatingLoader($app['config.resolver']);
-        });
-    }
+        };
 
-    public function boot(Application $app)
-    {
+        $app['config.replacements'] = [];
     }
 }
