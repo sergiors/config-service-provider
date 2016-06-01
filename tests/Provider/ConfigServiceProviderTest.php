@@ -1,8 +1,9 @@
 <?php
 
-namespace Sergiors\Silex\Provider;
+namespace Sergiors\Silex\Tests\Provider;
 
 use Pimple\Container;
+use Sergiors\Silex\Provider\ConfigServiceProvider;
 
 class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
