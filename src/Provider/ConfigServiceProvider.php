@@ -19,8 +19,6 @@ class ConfigServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
-        $app['config.replacements'] = [];
-
         $app['config.parameters'] = $app->share(function (Application $app) {
             return new ParameterBag($app['config.replacements']);
         });
@@ -48,6 +46,8 @@ class ConfigServiceProvider implements ServiceProviderInterface
         $app['config.loader'] = $app->share(function (Application $app) {
             return new DelegatingLoader($app['config.resolver']);
         });
+
+        $app['config.replacements'] = [];
     }
 
     public function boot(Application $app)

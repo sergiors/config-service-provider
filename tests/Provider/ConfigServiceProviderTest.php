@@ -1,9 +1,10 @@
 <?php
 
-namespace Sergiors\Silex\Provider;
+namespace Sergiors\Silex\Tests\Provider;
 
 use Silex\Application;
 use Silex\WebTestCase;
+use Sergiors\Silex\Provider\ConfigServiceProvider;
 
 class ConfigServiceProviderTest extends WebTestCase
 {

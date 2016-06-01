@@ -8,11 +8,6 @@
             "email": "sergio@inbep.com.br"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "Sergiors\\Silex\\": "src"
-        }
-    },
     "require": {
         "php": ">=5.5",
         "silex/silex": "~1.3",
@@ -28,5 +23,15 @@
         "phpmd/phpmd": "~2.2",
         "sebastian/phpcpd": "~2.0",
         "squizlabs/php_codesniffer": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sergiors\\Silex\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sergiors\\Silex\\Tests\\": "tests"
+        }
     }
 }
