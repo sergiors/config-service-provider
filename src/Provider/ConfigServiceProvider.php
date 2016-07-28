@@ -16,14 +16,11 @@ use Sergiors\Silex\Loader\DirectoryLoader;
  */
 class ConfigServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @param Container $app
+     */
     public function register(Container $app)
     {
-        if (!isset($app['config.filenames']) || !isset($app['config.replacements'])) {
-            throw new \LogicException(
-                'You must register the "config.filenames" and "config.replacements" to use the ConfigServiceProvider.'
-            );
-        }
-
         $app['config.initializer'] = $app->protect(function () use ($app) {
             static $initialized = false;
 
@@ -43,6 +40,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
         $app['config.replacements.resolver'] = $app->protect(function ($value) use ($app) {
             $replacements = $app['config.replacements'];
+
             if ([] === $replacements) {
                 return $value;
             }
@@ -88,9 +86,16 @@ class ConfigServiceProvider implements ServiceProviderInterface
             return new DelegatingLoader($app['config.loader.resolver']);
         };
 
-        $app['config.initializer']();
+        $app['config.filenames'] = [];
+        $app['config.replacements'] = [];
     }
 
+    /**
+     * @param string $value
+     * @param array  $replacements
+     *
+     * @return mixed
+     */
     private function resolveString($value, array $replacements)
     {
         if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {

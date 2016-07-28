@@ -33,11 +33,14 @@ In your php file
 ```php
 use Sergiors\Silex\Provider\ConfigServiceProvider;
 
-$app['config.filenames'] = '%root_dir%/config/config_%env%.yml';
-$app['config.replacements' = [
-    'root_dir' => dirname(__DIR__)
-];
-$app->register(new ConfigServiceProvider());
+$app->register(new ConfigServiceProvider(), [
+    'config.filenames' => '%root_dir%/config/config_%env%.yml',
+    'config.replacements' => [
+        'root_dir' => dirname(__DIR__)
+    ]
+]);
+
+$app['config.initializer']();
 ```
 
 Now you can access `$app['twig.options']['debug']` and others
