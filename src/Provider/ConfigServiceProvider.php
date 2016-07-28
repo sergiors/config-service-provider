@@ -18,6 +18,12 @@ class ConfigServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
+        if (!isset($app['config.filenames']) || !isset($app['config.replacements'])) {
+            throw new \LogicException(
+                'You must register the "config.filenames" and "config.replacements" to use the ConfigServiceProvider.'
+            );
+        }
+
         $app['config.initializer'] = $app->protect(function () use ($app) {
             static $initialized = false;
 
@@ -27,9 +33,9 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
             $initialized = true;
 
-            $paths = (array) $app['config.paths'];
+            $filenames = (array) $app['config.filenames'];
 
-            foreach ($paths as $path) {
+            foreach ($filenames as $path) {
                 $path = $app['config.replacements.resolver']($path);
                 $app['config.loader']->load($path);
             }
@@ -84,9 +90,6 @@ class ConfigServiceProvider implements ServiceProviderInterface
         };
 
         $app['config.initializer']();
-
-        $app['config.replacements'] = [];
-        $app['config.paths'] = [];
     }
 
     private function resolveString($value, array $replacements)

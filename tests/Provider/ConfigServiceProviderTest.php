@@ -13,9 +13,10 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function register()
     {
         $app = $this->createApplication();
-        $app['config.paths'] = __DIR__.'/../app/config_dev.yml';
+        $app['config.filenames'] = '%root_dir%/config_%env%.yml';
         $app['config.replacements'] = [
-            'root_dir' => dirname(__DIR__)
+            'env' => 'dev',
+            'root_dir' => dirname(__DIR__).'/app'
         ];
         $app['db.options'] = [
             'driver' => null,
@@ -42,7 +43,7 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function shouldSupportPhpFile()
     {
         $app = $this->createApplication();
-        $app['config.paths'] = __DIR__.'/../app/config.php';
+        $app['config.filenames'] = __DIR__.'/../app/config.php';
         $app['config.replacements'] = [
             'root_dir' => dirname(__DIR__)
         ];
@@ -58,7 +59,7 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function shouldLoadFileDirectory()
     {
         $app = $this->createApplication();
-        $app['config.paths'] =  dirname(__DIR__).'/app/sub/';
+        $app['config.filenames'] =  dirname(__DIR__).'/app/sub/';
         $app['config.replacements'] = [
             'root_dir' => dirname(__DIR__)
         ];
@@ -68,6 +69,16 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $app['router']);
         $this->assertCount(5, $app['db.options']);
         $this->assertEquals($app['router']['resource'], dirname(__DIR__).'/app/routing.yml');
+    }
+
+    /**
+     * @test
+     * @expectedException \LogicException
+     */
+    public function shouldThrowLogicException()
+    {
+        $app = $this->createApplication();
+        $app->register(new ConfigServiceProvider());
     }
 
     public function createApplication()

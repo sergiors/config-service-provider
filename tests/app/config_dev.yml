@@ -12,7 +12,7 @@ db.options:
       dbname: ~
 
 router:
-    resource: %root_dir%/app/routing.yml
+    resource: %root_dir%/routing.yml
 
 foo.options:
     foo:
