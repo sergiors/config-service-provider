@@ -43,7 +43,6 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
         $app['config.replacements.resolver'] = $app->protect(function ($value) use ($app) {
             $replacements = $app['config.replacements'];
-
             if ([] === $replacements) {
                 return $value;
             }
@@ -94,6 +93,12 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
     private function resolveString($value, array $replacements)
     {
+        if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {
+            $key = strtolower($match[1]);
+
+            return $replacements[$key];
+        }
+
         return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($replacements) {
             // skip %%
             if (!isset($match[1])) {

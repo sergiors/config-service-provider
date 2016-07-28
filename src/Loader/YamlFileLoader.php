@@ -6,10 +6,9 @@ use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
- * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
+ * Based on Symfony DependencyInjection.
  *
- * @see https://github.com/symfony/dependency-injection/blob/master/Loader/YamlFileLoader.php
+ * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
  */
 class YamlFileLoader extends FileLoader
 {

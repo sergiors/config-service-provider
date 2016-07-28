@@ -20,3 +20,5 @@ foo.options:
         beer:
             - 1
             - 2
+
+users: %users%

@@ -16,7 +16,8 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
         $app['config.filenames'] = '%root_dir%/config_%env%.yml';
         $app['config.replacements'] = [
             'env' => 'dev',
-            'root_dir' => dirname(__DIR__).'/app'
+            'root_dir' => dirname(__DIR__).'/app',
+            'users' => 'fake'
         ];
         $app['db.options'] = [
             'driver' => null,
@@ -69,6 +70,25 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $app['router']);
         $this->assertCount(5, $app['db.options']);
         $this->assertEquals($app['router']['resource'], dirname(__DIR__).'/app/routing.yml');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldLoadObject()
+    {
+        $app = $this->createApplication();
+        $app['config.filenames'] = '%root_dir%/config_%env%.yml';
+        $app['config.replacements'] = [
+            'env' => 'dev',
+            'root_dir' => dirname(__DIR__).'/app',
+            'users' => function () {
+                return new \stdClass();
+            }
+        ];
+        $app->register(new ConfigServiceProvider());
+
+        $this->assertInstanceOf(\stdClass::class, $app['users']);
     }
 
     /**
