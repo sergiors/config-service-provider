@@ -27,27 +27,25 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
             $initialized = true;
 
-            $paths = (array) $app['config.options']['paths'];
+            $paths = (array) $app['config.paths'];
 
             foreach ($paths as $path) {
-                $path = $app['config.replacements']($path);
+                $path = $app['config.replacements.resolver']($path);
                 $app['config.loader']->load($path);
             }
         });
 
-        $app['config.replacements'] = $app->protect(function ($value) use ($app) {
-            $replacements = $app['config.options']['replacements'];
+        $app['config.replacements.resolver'] = $app->protect(function ($value) use ($app) {
+            $replacements = $app['config.replacements'];
 
             if ([] === $replacements) {
                 return $value;
             }
 
             if (is_array($value)) {
-                foreach ($value as $k => $v) {
-                    $value[$k] = $app['config.replacements']($v);
-                }
-
-                return $value;
+                return array_map(function ($value) use ($app) {
+                    return $app['config.replacements.resolver']($value);
+                }, $value);
             }
 
             if (!is_string($value)) {
@@ -87,10 +85,8 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
         $app['config.initializer']();
 
-        $app['config.options'] = [
-            'paths' => [],
-            'replacements' => []
-        ];
+        $app['config.replacements'] = [];
+        $app['config.paths'] = [];
     }
 
     private function resolveString($value, array $replacements)

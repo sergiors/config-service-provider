@@ -13,11 +13,9 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function register()
     {
         $app = $this->createApplication();
-        $app['config.options'] = [
-            'paths' => __DIR__.'/../app/config_dev.yml',
-            'replacements' => [
-                'root_dir' => dirname(__DIR__)
-            ]
+        $app['config.paths'] = __DIR__.'/../app/config_dev.yml';
+        $app['config.replacements'] = [
+            'root_dir' => dirname(__DIR__)
         ];
         $app['db.options'] = [
             'driver' => null,
@@ -44,11 +42,9 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function shouldSupportPhpFile()
     {
         $app = $this->createApplication();
-        $app['config.options'] = [
-            'paths' => __DIR__.'/../app/config.php',
-            'replacements' => [
-                'root_dir' => dirname(__DIR__)
-            ]
+        $app['config.paths'] = __DIR__.'/../app/config.php';
+        $app['config.replacements'] = [
+            'root_dir' => dirname(__DIR__)
         ];
         $app->register(new ConfigServiceProvider());
 
@@ -62,11 +58,9 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function shouldLoadFileDirectory()
     {
         $app = $this->createApplication();
-        $app['config.options'] = [
-            'paths' => dirname(__DIR__).'/app/sub/',
-            'replacements' => [
-                'root_dir' => dirname(__DIR__)
-            ]
+        $app['config.paths'] =  dirname(__DIR__).'/app/sub/';
+        $app['config.replacements'] = [
+            'root_dir' => dirname(__DIR__)
         ];
         $app->register(new ConfigServiceProvider());
 

@@ -35,7 +35,7 @@ class YamlFileLoader extends FileLoader
         // imports
         $this->parseImports($content, $path);
 
-        $content = $this->container['config.replacements']($content);
+        $content = $this->container['config.replacements.resolver']($content);
 
         foreach ($content as $namespace => $values) {
             if (in_array($namespace, ['imports'])) {
@@ -93,16 +93,16 @@ class YamlFileLoader extends FileLoader
         }
 
         if (!is_array($content['imports'])) {
-            throw new \InvalidArgumentException(
-                sprintf('The "imports" key should contain an array in %s. Check your YAML syntax.', $file)
-            );
+            throw new \InvalidArgumentException(sprintf(
+                'The "imports" key should contain an array in %s. Check your YAML syntax.', $file
+            ));
         }
 
         foreach ($content['imports'] as $import) {
             if (!is_array($import)) {
-                throw new \InvalidArgumentException(
-                    sprintf('The values in the "imports" key should be arrays in %s. Check your YAML syntax.', $file)
-                );
+                throw new \InvalidArgumentException(sprintf(
+                    'The values in the "imports" key should be arrays in %s. Check your YAML syntax.', $file
+                ));
             }
 
             $ignoreErrors = isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false;
@@ -149,8 +149,7 @@ class YamlFileLoader extends FileLoader
 
         if (!is_array($content)) {
             throw new \InvalidArgumentException(sprintf(
-                'The service file "%s" is not valid. It should contain an array. Check your YAML syntax.',
-                $file
+                'The service file "%s" is not valid. It should contain an array. Check your YAML syntax.', $file
             ));
         }
 
