@@ -1,6 +1,6 @@
 <?php
 
-namespace Sergiors\Silex\DependencyInjection\Loader;
+namespace Sergiors\Silex\Loader;
 
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -35,14 +35,14 @@ class YamlFileLoader extends FileLoader
         // imports
         $this->parseImports($content, $path);
 
-        $content = $this->container['config.parameters']->resolveValue($content);
+        $content = $this->container['config.replacements']($content);
 
         foreach ($content as $namespace => $values) {
             if (in_array($namespace, ['imports'])) {
                 continue;
             }
 
-            if ($this->container->offsetExists($namespace) && is_array($values)) {
+            if (isset($this->container[$namespace]) && is_array($values)) {
                 $values = $this->merge($this->container[$namespace], $values);
             }
 
@@ -142,28 +142,9 @@ class YamlFileLoader extends FileLoader
         }
 
         try {
-            $configuration = $this->yamlParser->parse(file_get_contents($file));
+            $content = $this->yamlParser->parse(file_get_contents($file));
         } catch (ParseException $e) {
             throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML.', $file), 0, $e);
-        }
-
-        return $this->validate($configuration, $file);
-    }
-
-    /**
-     * Validates a YAML file.
-     *
-     * @param mixed  $content
-     * @param string $file
-     *
-     * @return array
-     *
-     * @throws InvalidArgumentException When service file is not valid
-     */
-    private function validate($content, $file)
-    {
-        if (null === $content) {
-            return $content;
         }
 
         if (!is_array($content)) {
@@ -171,12 +152,6 @@ class YamlFileLoader extends FileLoader
                 'The service file "%s" is not valid. It should contain an array. Check your YAML syntax.',
                 $file
             ));
-        }
-
-        foreach ($content as $namespace => $data) {
-            if (in_array($namespace, array('imports'))) {
-                continue;
-            }
         }
 
         return $content;

@@ -1,12 +1,9 @@
 <?php
 
-namespace Sergiors\Silex\DependencyInjection\Loader;
+namespace Sergiors\Silex\Loader;
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
- *
- * @see https://github.com/symfony/dependency-injection/blob/master/Loader/PhpFileLoader.php
  */
 class PhpFileLoader extends FileLoader
 {

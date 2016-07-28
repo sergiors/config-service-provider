@@ -13,11 +13,12 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function register()
     {
         $app = $this->createApplication();
-        $app->register(new ConfigServiceProvider(), [
-            'config.replacements' => [
-                'root_dir' => dirname(__DIR__),
-            ],
-        ]);
+        $app['config.options'] = [
+            'paths' => __DIR__.'/../app/config_dev.yml',
+            'replacements' => [
+                'root_dir' => dirname(__DIR__)
+            ]
+        ];
         $app['db.options'] = [
             'driver' => null,
         ];
@@ -27,13 +28,11 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
                 'beer' => [],
             ],
         ];
-
-        $app['config.loader']->load(__DIR__.'/../app/config_dev.yml');
+        $app->register(new ConfigServiceProvider());
 
         $this->assertCount(1, $app['twig.options']);
         $this->assertCount(6, $app['db.options']);
         $this->assertEquals($app['router']['resource'], dirname(__DIR__).'/app/routing.yml');
-        $this->assertEquals($app['config.parameters']->get('root_dir'), dirname(__DIR__));
         $this->assertEquals('pdo_pgsql', $app['db.options']['driver']);
         $this->assertEquals('beer', $app['foo.options']['foo']['bar']);
         $this->assertCount(2, $app['foo.options']['foo']['beer']);
@@ -45,13 +44,14 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function shouldSupportPhpFile()
     {
         $app = $this->createApplication();
-        $app->register(new ConfigServiceProvider(), [
-            'config.replacements' => [
-                'root_dir' => dirname(__DIR__),
-            ],
-        ]);
+        $app['config.options'] = [
+            'paths' => __DIR__.'/../app/config.php',
+            'replacements' => [
+                'root_dir' => dirname(__DIR__)
+            ]
+        ];
+        $app->register(new ConfigServiceProvider());
 
-        $app['config.loader']->load(__DIR__.'/../app/config.php');
         $this->assertCount(1, $app['twig.options']);
         $this->assertArrayHasKey('debug', $app['twig.options']);
     }
@@ -62,13 +62,13 @@ class ConfigServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function shouldLoadFileDirectory()
     {
         $app = $this->createApplication();
-        $app->register(new ConfigServiceProvider(), [
-            'config.replacements' => [
-                'root_dir' => dirname(__DIR__),
-            ],
-        ]);
-
-        $app['config.loader']->load(dirname(__DIR__).'/app/sub/');
+        $app['config.options'] = [
+            'paths' => dirname(__DIR__).'/app/sub/',
+            'replacements' => [
+                'root_dir' => dirname(__DIR__)
+            ]
+        ];
+        $app->register(new ConfigServiceProvider());
 
         $this->assertCount(1, $app['twig.options']);
         $this->assertCount(1, $app['router']);

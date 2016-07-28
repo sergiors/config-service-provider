@@ -1,12 +1,9 @@
 <?php
 
-namespace Sergiors\Silex\DependencyInjection\Loader;
+namespace Sergiors\Silex\Loader;
 
 /**
- * @author Sebastien Lavoie <seb@wemakecustom.com>
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
- *
- * @see https://github.com/symfony/dependency-injection/blob/master/Loader/DirectoryLoader.php
  */
 class DirectoryLoader extends FileLoader
 {
@@ -23,6 +20,7 @@ class DirectoryLoader extends FileLoader
                 if (is_dir($path.'/'.$dir)) {
                     $dir .= '/'; // append / to allow recursion
                 }
+
                 $this->setCurrentDir($path);
                 $this->import($dir, null, false, $path);
             }
