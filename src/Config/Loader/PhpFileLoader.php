@@ -1,6 +1,6 @@
 <?php
 
-namespace Sergiors\Silex\Loader;
+namespace Sergiors\Silex\Config\Loader;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sergiors\Silex\Loader;
+namespace Sergiors\Silex\Config\Loader;
 
 use Pimple\Container;
 use Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;

@@ -7,9 +7,9 @@ use Pimple\ServiceProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\DelegatingLoader;
-use Sergiors\Silex\Loader\YamlFileLoader;
-use Sergiors\Silex\Loader\PhpFileLoader;
-use Sergiors\Silex\Loader\DirectoryLoader;
+use Sergiors\Silex\Config\Loader\YamlFileLoader;
+use Sergiors\Silex\Config\Loader\PhpFileLoader;
+use Sergiors\Silex\Config\Loader\DirectoryLoader;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>

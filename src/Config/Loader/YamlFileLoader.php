@@ -1,6 +1,6 @@
 <?php
 
-namespace Sergiors\Silex\Loader;
+namespace Sergiors\Silex\Config\Loader;
 
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Yaml\Exception\ParseException;
