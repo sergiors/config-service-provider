@@ -10,6 +10,7 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
 use Sergiors\Silex\Config\Loader\YamlFileLoader;
 use Sergiors\Silex\Config\Loader\PhpFileLoader;
 use Sergiors\Silex\Config\Loader\DirectoryLoader;
+use Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
@@ -98,21 +99,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
      */
     private function resolveString($value, array $replacements)
     {
-        if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {
-            $key = strtolower($match[1]);
-
-            return $replacements[$key];
-        }
-
-        return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($replacements) {
-            // skip %%
-            if (!isset($match[1])) {
-                return '%%';
-            }
-
-            $key = strtolower($match[1]);
-
-            return $replacements[$key];
-        }, $value);
+        $parameterBag = new EnvPlaceholderParameterBag($replacements);
+        return $parameterBag->resolveValue($value);
     }
 }

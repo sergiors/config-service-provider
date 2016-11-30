@@ -33,6 +33,7 @@
     </filter>
 
     <php>
-        <ini name="date.timezone" value="America/Sao_Paulo"/>
+        <ini name="date.timezone" value="America/Sao_Paulo"/>\
+        <env name="DB_DRIVER" value="pdo_pgsql"/>
     </php>
 </phpunit>
